@@ -1,6 +1,6 @@
 import math
 class Blobservation:
-    def __init__(self,room_height,*args):
+    def __init__(self,room_height,*args):#completed
         if len(args) == 1:
             self.room_height = room_height
             self.room_width = args[0]
@@ -10,7 +10,7 @@ class Blobservation:
         else:
             raise TypeError("__init__() takes 2 positional arguments but " + str(len(args)+1) + " were given")
         self.blobs = []
-    def populate(self,blob_info):
+    def populate(self,blob_info):#completed
         if type(blob_info) == type([]):
             for i in range(len(blob_info)):
                 if type(blob_info[i]) != type({}):
@@ -26,7 +26,7 @@ class Blobservation:
         for i in range(len(blob_info)):
             self.blobs.append(blob_info[i])
         self.blobs = self.merge()
-    def merge(self):
+    def merge(self):#completed
         i = 0
         while i < len(self.blobs):
             b = i+1
@@ -38,13 +38,13 @@ class Blobservation:
                     b += 1
             i += 1
         return self.blobs
-    def distance(self,blob1,blob2):
+    def distance(self,blob1,blob2):#completed
         a = blob2['x'] - blob1['x']
         b = blob2['y'] - blob1['y']
         c = (a*a)+(b*b)
         c = math.sqrt(c)
         return c
-    def azimuth(self,blob1, blob2):
+    def azimuth(self,blob1, blob2):#completed
         x1 = 0
         y1 = 1
         x2 = blob2['x'] - blob1['x']
@@ -61,14 +61,14 @@ class Blobservation:
                 continue
             else:
                 pass
-    def move(self,*args):
+    def move(self,*args):#completed
         test = 1
         if len(args) == 1:
             turns = args[0]
         elif len(args) == 0:
             turns = 1
         else:
-            raise TypeError("move() takes 1 positional arguments but " + str(len(args)) + " were given")
+            raise TypeError("move() takes 1 positional argument but " + str(len(args)) + " were given")
         if type(turns) != type(test):
             raise TypeError
         elif turns < test:
@@ -83,7 +83,7 @@ class Blobservation:
             if i['size'] < smallest_blob_size:
                 smallest_blob_size = i['size']
                 smallest_blob = i
-    def print_state(self):
+    def print_state(self):#completed
         result = []
         for i in range(len(self.blobs)):
             element = []
