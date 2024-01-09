@@ -44,7 +44,7 @@ class Blobservation:
         c = (a*a)+(b*b)
         c = math.sqrt(c)
         return c
-    def azimuth(self,blob1, blob2):#completed
+    def azimuth(self,blob1,blob2):#completed
         x1 = 0
         y1 = 1
         x2 = blob2['x'] - blob1['x']
@@ -56,11 +56,17 @@ class Blobservation:
             r += 360
         return r
     def find_nearest_blob(self,original_blob):
-        for i in self.blobs:
-            if i == original_blob:
-                continue
-            else:
-                pass
+        #make a copy of self.blobs , and add distance and angle to it
+        modified_blob_list = self.blobs
+        for i in range(len(modified_blob_list)):
+            modified_blob_list[i]['distance'] = self.distance(original_blob,i)
+            modified_blob_list[i]['angle'] = self.azimuth(original_blob,i)
+        #determine the closest blob
+        smallest_blob_distance = self.room_height * self.room_width
+        for i in range(len(modified_blob_list)):
+            if modified_blob_list[i]['distance'] != 0:
+                if smallest_blob_distance > modified_blob_list[i]['distance']:
+                    smallest_blob_distance = modified_blob_list[i]['distance']
     def move(self,*args):#completed
         test = 1
         if len(args) == 1:
