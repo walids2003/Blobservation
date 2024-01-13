@@ -63,11 +63,10 @@ class Blobservation:
         #determine the closest blob
         smallest_blob_distance = self.room_height * self.room_width
         for i in range(len(modified_blob_list)):
-            if modified_blob_list[i]['distance'] != 0:
-                if smallest_blob_distance > modified_blob_list[i]['distance']:
-                    smallest_blob_distance = modified_blob_list[i]['distance']
+            if smallest_blob_distance > modified_blob_list[i]['distance']:
+                smallest_blob_distance = modified_blob_list[i]['distance']
         modified_blob_list = sorted(modified_blob_list, key=lambda x: x['distance'])
-        smallest_blob_distance = modified_blob_list[0]['distance']
+        smallest_blob_distance = modified_blob_list[1]['distance']
         return [i for i in modified_blob_list if i['distance'] == smallest_blob_distance]
     def find_smallest_blob(self):
         pass
