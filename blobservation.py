@@ -55,12 +55,11 @@ class Blobservation:
         if r < 0:
             r += 360
         return r
-    def find_nearest_blob(self,original_blob):
-        #make a copy of self.blobs , and add distance and angle to it
+    def find_nearest_blob(self,original_blob):#completed
+        #make a copy of self.blobs , and add distance to it
         modified_blob_list = self.blobs
         for i in range(len(modified_blob_list)):
             modified_blob_list[i]['distance'] = self.distance(original_blob,i)
-            modified_blob_list[i]['angle'] = self.azimuth(original_blob,i)
         #determine the closest blob
         smallest_blob_distance = self.room_height * self.room_width
         for i in range(len(modified_blob_list)):
@@ -68,7 +67,9 @@ class Blobservation:
                 if smallest_blob_distance > modified_blob_list[i]['distance']:
                     smallest_blob_distance = modified_blob_list[i]['distance']
         modified_blob_list = sorted(modified_blob_list, key=lambda x: x['distance'])
-        return modified_blob_list
+        return modified_blob_list[0]
+    def find_smallest_blob(self):
+        pass
     def move(self,*args):#completed
         test = 1
         if len(args) == 1:
