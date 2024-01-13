@@ -118,7 +118,21 @@ class Blobservation:
         for turn in range(num_of_turns):
             for i in range(len(modified_blob_list)):
                 modified_blob_list[i]['direction'] = self.determine_direction(i)
-        
+                self.move_blob(modified_blob_list)
+                self.merge()
+    def find_dictionary_in_list(self,dictionary_list, target_dict):#completed
+        #remove 'direction' from the list
+        for i in range(len(dictionary_list)):
+            dictionary_list[i] = dictionary_list[i].pop('direction')
+        #find index of target_dict in dictionary_list
+        for d in range(len(dictionary_list)):
+            if dictionary_list[d] == target_dict:
+                return d
+        return False
+    def move_blob(self,modified_blob_list):#completed
+        for i in modified_blob_list:
+            self.blobs[self.find_dictionary_in_list(modified_blob_list,i)]['y'] += i['direction'][1]
+            self.blobs[self.find_dictionary_in_list(modified_blob_list,i)]['x'] += i['direction'][0]
     def print_state(self):#completed
         result = []
         for i in range(len(self.blobs)):
