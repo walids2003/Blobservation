@@ -4,11 +4,9 @@ class Blobservation:
         if len(args) == 1:
             self.room_height = room_height
             self.room_width = args[0]
-        elif len(args) == 0:
+        else:
             self.room_height = room_height
             self.room_width = self.room_height
-        else:
-            raise TypeError("__init__() takes 2 positional arguments but " + str(len(args)+1) + " were given")
         self.blobs = []
     def populate(self,blob_info):#completed
         if type(blob_info) == type([]):
@@ -55,11 +53,7 @@ class Blobservation:
         if r < 0:
             r += 360
         return r
-    def find_nearest_blob(self,original_blob):#completed
-        #make a copy of self.blobs , and add distance to it
-        global modified_blob_list
-        global smallest_blob_distance
-        modified_blob_list = self.blobs
+    def find_nearest_blob(self,original_blob,modified_blob_list):#completed
         for i in range(len(modified_blob_list)):
             modified_blob_list[i]['distance'] = self.distance(original_blob,i)
         #determine the closest blob
@@ -70,8 +64,31 @@ class Blobservation:
         modified_blob_list = sorted(modified_blob_list, key=lambda x: x['distance'])
         smallest_blob_distance = modified_blob_list[1]['distance']
         return [i for i in modified_blob_list if i['distance'] == smallest_blob_distance]
+    def find_smaller_blobs(self,blob):#completed
+        result = []
+        for i in self.blobs:
+            if blob['size'] > i['size']:
+                result.append(i)
+        return result
+    def find_biggest_blobs(self,modified_blob_list):#completed
+        biggest_blob_size = 0
+        result = []
+        for i in modified_blob_list:
+            if i['size'] > biggest_blob_size:
+                biggest_blob_size = i['size']
+        for i in modified_blob_list:
+            if i['size'] == biggest_blob_size:
+                result.append(i)
+        return result
+    def determine_direction(self,blob):
+        smaller_blobs = self.find_smaller_blobs(blob)
+        if len(smaller_blobs) != 1:
+            nearest_blobs = self.find_nearest_blob(blob,smaller_blobs)
+            if len(nearest_blobs) != 1:
+                biggest_blobs = smaller_blobs = self.find_biggest_blobs(nearest_blobs)
     def move(self,num_of_turns = 1):
-        pass
+        for i in range(num_of_turns):
+            self.determine_direction()
     def print_state(self):#completed
         result = []
         for i in range(len(self.blobs)):
