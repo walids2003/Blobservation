@@ -91,8 +91,8 @@ generation0 = [
     {'x':4,'y':3,'size':4},
     {'x':5,'y':6,'size':2},
     {'x':6,'y':7,'size':1},
-    {'x':7,'y':0,'size':3},
-    {'x':7,'y':2,'size':1}
+    {'x':7,'y':2,'size':1},
+    {'x':7,'y':0,'size':3}
 ]
 blobs = Blobservation(8)
 blobs.populate(generation0)
