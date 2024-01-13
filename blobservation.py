@@ -116,7 +116,7 @@ class Blobservation:
         modified_blob_list = self.blobs
         for turn in range(num_of_turns):
             for i in range(len(modified_blob_list)):
-                modified_blob_list[i]['direction'] = self.determine_direction()
+                modified_blob_list[i]['direction'] = self.determine_direction(i)
         
     def print_state(self):#completed
         result = []
