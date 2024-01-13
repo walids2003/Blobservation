@@ -67,6 +67,8 @@ class Blobservation:
             if modified_blob_list[i]['distance'] != 0:
                 if smallest_blob_distance > modified_blob_list[i]['distance']:
                     smallest_blob_distance = modified_blob_list[i]['distance']
+        modified_blob_list = sorted(modified_blob_list, key=lambda x: x['distance'])
+        return modified_blob_list
     def move(self,*args):#completed
         test = 1
         if len(args) == 1:
