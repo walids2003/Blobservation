@@ -57,6 +57,8 @@ class Blobservation:
         return r
     def find_nearest_blob(self,original_blob):#completed
         #make a copy of self.blobs , and add distance to it
+        global modified_blob_list
+        global smallest_blob_distance
         modified_blob_list = self.blobs
         for i in range(len(modified_blob_list)):
             modified_blob_list[i]['distance'] = self.distance(original_blob,i)
@@ -68,30 +70,8 @@ class Blobservation:
         modified_blob_list = sorted(modified_blob_list, key=lambda x: x['distance'])
         smallest_blob_distance = modified_blob_list[1]['distance']
         return [i for i in modified_blob_list if i['distance'] == smallest_blob_distance]
-    def find_smallest_blob(self):
+    def move(self,num_of_turns = 1):
         pass
-    def move(self,*args):#completed
-        test = 1
-        if len(args) == 1:
-            turns = args[0]
-        elif len(args) == 0:
-            turns = 1
-        else:
-            raise TypeError("move() takes 1 positional argument but " + str(len(args)) + " were given")
-        if type(turns) != type(test):
-            raise TypeError
-        elif turns < test:
-            raise ValueError
-        biggest_blob_size = 0
-        for i in self.blobs:
-            if i['size'] > biggest_blob_size:
-                biggest_blob_size = i['size']
-                biggest_blob = i
-        smallest_blob_size = biggest_blob_size
-        for i in self.blobs:
-            if i['size'] < smallest_blob_size:
-                smallest_blob_size = i['size']
-                smallest_blob = i
     def print_state(self):#completed
         result = []
         for i in range(len(self.blobs)):
@@ -100,5 +80,5 @@ class Blobservation:
             element.append(self.blobs[i]['y'])
             element.append(self.blobs[i]['size'])
             result.append(element)
-        result.sort()
+        result.sort(key=lambda x: (x[0], x[1]))
         return result
