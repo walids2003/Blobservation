@@ -91,6 +91,7 @@ class Blobservation:
                 return i
     def determine_blob(self,blob):#completed
         smaller_blobs = self.find_smaller_blobs(blob)
+        if len(smaller_blobs) == 0 : return blob
         nearest_blobs = self.find_nearest_blob(blob,smaller_blobs)
         if len(nearest_blobs) != 1:
             biggest_blobs = smaller_blobs = self.find_biggest_blobs(nearest_blobs)
