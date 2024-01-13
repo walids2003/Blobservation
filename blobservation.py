@@ -82,3 +82,23 @@ class Blobservation:
             result.append(element)
         result.sort(key=lambda x: (x[0], x[1]))
         return result
+    
+generation0 = [
+    {'x':0,'y':4,'size':3},
+    {'x':0,'y':7,'size':5},
+    {'x':2,'y':0,'size':2},
+    {'x':3,'y':7,'size':2},
+    {'x':4,'y':3,'size':4},
+    {'x':5,'y':6,'size':2},
+    {'x':6,'y':7,'size':1},
+    {'x':7,'y':0,'size':3},
+    {'x':7,'y':2,'size':1}
+]
+blobs = Blobservation(8)
+blobs.populate(generation0)
+blobs.move()
+assert blobs.print_state() == [[0,6,5],[1,5,3],[3,1,2],[4,7,2],[5,2,4],[6,7,3],[7,1,3],[7,2,1]], blobs.print_state()
+blobs.move()
+assert blobs.print_state() == [[1,5,5],[2,6,3],[4,2,2],[5,6,2],[5,7,3],[6,1,4],[7,2,4]], blobs.print_state()
+blobs.move(1000)
+assert blobs.print_state() == [[4,3,23]], blobs.print_state()
