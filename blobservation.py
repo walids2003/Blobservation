@@ -56,7 +56,7 @@ class Blobservation:
         return r
     def find_nearest_blob(self,original_blob,modified_blob_list):#completed
         for i in range(len(modified_blob_list)):
-            modified_blob_list[i]['distance'] = self.distance(original_blob,i)
+            modified_blob_list[i]['distance'] = self.distance(original_blob,modified_blob_list[i])
         #determine the closest blob
         smallest_blob_distance = self.room_height * self.room_width
         for i in range(len(modified_blob_list)):
@@ -117,13 +117,13 @@ class Blobservation:
         modified_blob_list = self.blobs
         for turn in range(num_of_turns):
             for i in range(len(modified_blob_list)):
-                modified_blob_list[i]['direction'] = self.determine_direction(i)
+                modified_blob_list[i]['direction'] = self.determine_direction(modified_blob_list[i])
                 self.move_blob(modified_blob_list)
                 self.merge()
     def find_dictionary_in_list(self,dictionary_list, target_dict):#completed
         #remove 'direction' from the list
         for i in range(len(dictionary_list)):
-            dictionary_list[i] = dictionary_list[i].pop('direction')
+            dictionary_list[i].pop('direction')
         #find index of target_dict in dictionary_list
         for d in range(len(dictionary_list)):
             if dictionary_list[d] == target_dict:
