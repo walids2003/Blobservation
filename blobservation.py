@@ -52,6 +52,7 @@ class Blobservation:
         r = (v1_theta - v2_theta) * (180.0 / math.pi)
         if r < 0:
             r += 360
+        r = r % 360
         return r
     def find_nearest_blob(self,original_blob,modified_blob_list):#completed
         for i in range(len(modified_blob_list)):
@@ -80,15 +81,43 @@ class Blobservation:
             if i['size'] == biggest_blob_size:
                 result.append(i)
         return result
-    def determine_direction(self,blob):
+    def find_blob_angle(self,blob,modified_blob_list):#completed
+        smallest_angle = 359.9
+        for i in modified_blob_list:
+            if self.azimuth(blob,i) < smallest_angle:
+                smallest_angle = self.azimuth(blob,i)
+        for i in modified_blob_list:
+            if self.azimuth(blob,i) == smallest_angle:
+                return i
+    def determine_blob(self,blob):#completed
         smaller_blobs = self.find_smaller_blobs(blob)
-        if len(smaller_blobs) != 1:
-            nearest_blobs = self.find_nearest_blob(blob,smaller_blobs)
-            if len(nearest_blobs) != 1:
-                biggest_blobs = smaller_blobs = self.find_biggest_blobs(nearest_blobs)
+        nearest_blobs = self.find_nearest_blob(blob,smaller_blobs)
+        if len(nearest_blobs) != 1:
+            biggest_blobs = smaller_blobs = self.find_biggest_blobs(nearest_blobs)
+            if len(biggest_blobs) != 1:
+                result = self.find_blob_angle(blob,biggest_blobs)
+                return result[0]
+            return biggest_blobs[0]
+        return nearest_blobs[0]
+    def determine_direction(self,blob):#completed by sharpfang
+        result = [0,0]
+        blob1 = blob
+        blob2 = self.determine_blob(blob)
+        if blob1['x'] > blob2['x']:
+            result[0] = -1
+        if blob1['x'] < blob2['x']:
+            result[0] = 1
+        if blob1['y'] > blob2['x']:
+            result[1] = -1
+        if blob1['y'] < blob2['x']:
+            result[1] = 1
+        return result
     def move(self,num_of_turns = 1):
-        for i in range(num_of_turns):
-            self.determine_direction()
+        modified_blob_list = self.blobs
+        for turn in range(num_of_turns):
+            for i in range(len(modified_blob_list)):
+                modified_blob_list[i]['direction'] = self.determine_direction()
+        
     def print_state(self):#completed
         result = []
         for i in range(len(self.blobs)):
