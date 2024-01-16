@@ -1,12 +1,9 @@
 import math
+import copy
 class Blobservation:
-    def __init__(self,room_height,*args):#completed
-        if len(args) == 1:
-            self.room_height = room_height
-            self.room_width = args[0]
-        else:
-            self.room_height = room_height
-            self.room_width = self.room_height
+    def __init__(self,room_height,room_width=None):#completed
+        self.room_height = room_height
+        self.room_width = room_width if room_width is not None else room_height
         self.blobs = []
     def populate(self,blob_info):#completed
         if type(blob_info) == type([]):
@@ -117,11 +114,12 @@ class Blobservation:
             result[1] = 1
         return result
     def move(self,num_of_turns = 1):
-        modified_blob_list = self.blobs
+        modified_blob_list = copy.deepcopy(self.blobs)
         for turn in range(num_of_turns):
             for i in range(len(modified_blob_list)):
-                modified_blob_list[i]['direction'] = self.determine_direction(modified_blob_list[i])
+                self.blobs[i]['direction'] = self.determine_direction(modified_blob_list[i])
                 self.move_blob(i)
+                self.blobs[i].pop('direction')
             self.merge()
     def find_dictionary_in_list(self,dictionary_list, target_dict):#completed
         #remove 'direction' from the list
