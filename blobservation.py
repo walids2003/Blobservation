@@ -94,8 +94,7 @@ class Blobservation:
         if len(nearest_blobs) != 1:
             biggest_blobs = smaller_blobs = self.find_biggest_blobs(nearest_blobs)
             if len(biggest_blobs) != 1:
-                result = self.find_blob_angle(blob,biggest_blobs)
-                return result[0]
+                return self.find_blob_angle(blob,biggest_blobs)
             return biggest_blobs[0]
         return nearest_blobs[0]
     def determine_direction(self,blob):#completed by sharpfang
@@ -115,9 +114,8 @@ class Blobservation:
         modified_blob_list = copy.deepcopy(self.blobs)
         for turn in range(num_of_turns):
             for i in range(len(modified_blob_list)):
-                self.blobs[i]['direction'] = self.determine_direction(modified_blob_list[i])
-                self.move_blob(i)
-                self.blobs[i].pop('direction')
+                modified_blob_list[i]['direction'] = self.determine_direction(modified_blob_list[i])
+                self.move_blob(i,modified_blob_list)
             self.merge()
     def find_dictionary_in_list(self,dictionary_list, target_dict):#completed
         #remove 'direction' from the list
@@ -128,9 +126,9 @@ class Blobservation:
             if dictionary_list[d] == target_dict:
                 return d
         return False
-    def move_blob(self,i):#completed
-        self.blobs[i]['y'] += self.blobs[i]['direction'][1]
-        self.blobs[i]['x'] += self.blobs[i]['direction'][0]
+    def move_blob(self,i,modified_blob_list):#completed
+        self.blobs[i]['y'] += modified_blob_list[i]['direction'][1]
+        self.blobs[i]['x'] += modified_blob_list[i]['direction'][0]
     def print_state(self):#completed
         result = []
         for i in range(len(self.blobs)):
