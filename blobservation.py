@@ -137,8 +137,7 @@ class Blobservation:
             element.append(self.blobs[i]['y'])
             element.append(self.blobs[i]['size'])
             result.append(element)
-        result.sort(key=lambda x: (x[0], x[1]))
-        return result
+        return sorted(result, key=lambda x: (x[0], x[1]))
     
 generation0 = [
     {'x':0,'y':4,'size':3},
