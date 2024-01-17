@@ -34,11 +34,9 @@ class Blobservation:
             i += 1
         return self.blobs
     def distance(self,blob1,blob2):#completed
-        a = blob2['x'] - blob1['x']
-        b = blob2['y'] - blob1['y']
-        c = (a*a)+(b*b)
-        c = math.sqrt(c)
-        return c
+        a = abs(blob2['x'] - blob1['x'])
+        b = abs(blob2['y'] - blob1['y'])
+        return a + b
     def azimuth(self,blob1,blob2):#completed
         x1 = 0
         y1 = 1
