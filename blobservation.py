@@ -8,8 +8,7 @@ class Blobservation:
     def populate(self,blob_info):#completed
         if type(blob_info) == type([]):
             for i in range(len(blob_info)):
-                if type(blob_info[i]) != type({}):
-                    raise TypeError
+                if type(blob_info[i]) != type({}):raise TypeError
                 if blob_info[i]['x'] < 0 or blob_info[i]['x'] > self.room_width:raise ValueError("An x value is incorrect")
                 if blob_info[i]['y'] < 0 or blob_info[i]['y'] > self.room_height:raise ValueError("A y value is incorrect")
                 if blob_info[i]['size'] < 1 or blob_info[i]['size'] > 20:raise ValueError("A size value is incorrect")
@@ -104,6 +103,7 @@ class Blobservation:
         if blob1['y'] < blob2['y']:result[1] = 1
         return result
     def move(self,num_of_turns = 1):
+        if num_of_turns < 0:raise ValueError
         for turn in range(num_of_turns):
             modified_blob_list = copy.deepcopy(self.blobs)
             for i in range(len(modified_blob_list)):
