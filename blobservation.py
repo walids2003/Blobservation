@@ -101,14 +101,10 @@ class Blobservation:
         result = [0,0]
         blob1 = blob
         blob2 = self.determine_blob(blob)
-        if blob1['x'] > blob2['x']:
-            result[0] = -1
-        if blob1['x'] < blob2['x']:
-            result[0] = 1
-        if blob1['y'] > blob2['y']:
-            result[1] = -1
-        if blob1['y'] < blob2['y']:
-            result[1] = 1
+        if blob1['x'] > blob2['x']:result[0] = -1
+        if blob1['x'] < blob2['x']:result[0] = 1
+        if blob1['y'] > blob2['y']:result[1] = -1
+        if blob1['y'] < blob2['y']:result[1] = 1
         return result
     def move(self,num_of_turns = 1):
         modified_blob_list = copy.deepcopy(self.blobs)
