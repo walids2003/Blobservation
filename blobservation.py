@@ -105,9 +105,9 @@ class Blobservation:
             result[0] = -1
         if blob1['x'] < blob2['x']:
             result[0] = 1
-        if blob1['y'] > blob2['x']:
+        if blob1['y'] > blob2['y']:
             result[1] = -1
-        if blob1['y'] < blob2['x']:
+        if blob1['y'] < blob2['y']:
             result[1] = 1
         return result
     def move(self,num_of_turns = 1):
