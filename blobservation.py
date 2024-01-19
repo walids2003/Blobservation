@@ -10,12 +10,9 @@ class Blobservation:
             for i in range(len(blob_info)):
                 if type(blob_info[i]) != type({}):
                     raise TypeError
-                if blob_info[i]['x'] < 0 or blob_info[i]['x'] > self.room_width:
-                    raise ValueError("An x value is incorrect")
-                if blob_info[i]['y'] < 0 or blob_info[i]['y'] > self.room_height:
-                    raise ValueError("A y value is incorrect")
-                if blob_info[i]['size'] < 1 or blob_info[i]['size'] > 20:
-                    raise ValueError("A size value is incorrect")
+                if blob_info[i]['x'] < 0 or blob_info[i]['x'] > self.room_width:raise ValueError("An x value is incorrect")
+                if blob_info[i]['y'] < 0 or blob_info[i]['y'] > self.room_height:raise ValueError("A y value is incorrect")
+                if blob_info[i]['size'] < 1 or blob_info[i]['size'] > 20:raise ValueError("A size value is incorrect")
         else:
             raise TypeError
         for i in range(len(blob_info)):
@@ -107,8 +104,8 @@ class Blobservation:
         if blob1['y'] < blob2['y']:result[1] = 1
         return result
     def move(self,num_of_turns = 1):
-        modified_blob_list = copy.deepcopy(self.blobs)
         for turn in range(num_of_turns):
+            modified_blob_list = copy.deepcopy(self.blobs)
             for i in range(len(modified_blob_list)):
                 modified_blob_list[i]['direction'] = self.determine_direction(modified_blob_list[i])
             for i in range(len(modified_blob_list)):
