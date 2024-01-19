@@ -1,9 +1,9 @@
 import math
 import copy
 class Blobservation:
-    def __init__(self,room_height,room_width=None):#completed
-        self.room_height = room_height
-        self.room_width = room_width if room_width is not None else room_height
+    def __init__(self,room_width,room_height=None):#completed
+        self.room_width = room_width
+        self.room_height = room_height if room_height is not None else room_width
         self.blobs = []
     def populate(self,blob_info):#completed
         if type(blob_info) == type([]):

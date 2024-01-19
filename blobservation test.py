@@ -45,6 +45,7 @@ generation2 = [
 	{'x':7,'y':2,'size':6},
 	{'x':3,'y':3,'size':2}]
 blobs = Blobservation(10,8)
+                    #(x ,y)
 blobs.populate(generation1)
 blobs.move()
 pf(blobs,[[0,6,1],[1,1,1],[1,6,2],[2,1,5],[2,6,7],[4,2,6],[6,7,3],[7,1,2],[7,4,4],[7,7,1],[8,7,3]])
