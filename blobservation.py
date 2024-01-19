@@ -111,6 +111,7 @@ class Blobservation:
         for turn in range(num_of_turns):
             for i in range(len(modified_blob_list)):
                 modified_blob_list[i]['direction'] = self.determine_direction(modified_blob_list[i])
+            for i in range(len(modified_blob_list)):
                 self.move_blob(i,modified_blob_list)
             self.merge()
     def find_dictionary_in_list(self,dictionary_list, target_dict):#completed
