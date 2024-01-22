@@ -1,11 +1,11 @@
 import math
 import copy
 class Blobservation:
-    def __init__(self,room_width,room_height=None):#completed
+    def __init__(self,room_width,room_height=None):
         self.room_width = room_width
         self.room_height = room_height if room_height is not None else room_width
         self.blobs = []
-    def populate(self,blob_info):#completed
+    def populate(self,blob_info):
         if type(blob_info) == type([]):
             for i in range(len(blob_info)):
                 if type(blob_info[i]) != type({}):raise TypeError
@@ -17,7 +17,7 @@ class Blobservation:
         for i in range(len(blob_info)):
             self.blobs.append(blob_info[i])
         self.blobs = self.merge()
-    def merge(self):#completed
+    def merge(self):
         i = 0
         while i < len(self.blobs):
             b = i+1
@@ -29,11 +29,11 @@ class Blobservation:
                     b += 1
             i += 1
         return self.blobs
-    def distance(self,blob1,blob2):#completed
+    def distance(self,blob1,blob2):
         x = abs(blob2['x'] - blob1['x'])
         y = abs(blob2['y'] - blob1['y'])
         return max(x,y)
-    def azimuth(self,blob1,blob2):#completed
+    def azimuth(self,blob1,blob2):
         x1 = 0
         y1 = 1
         x2 = blob2['x'] - blob1['x']
@@ -45,7 +45,7 @@ class Blobservation:
             r += 360
         r = r % 360
         return r
-    def find_nearest_blob(self,original_blob,modified_blob_list_distance):#completed
+    def find_nearest_blob(self,original_blob,modified_blob_list_distance):
         for i in range(len(modified_blob_list_distance)):
             modified_blob_list_distance[i]['distance'] = self.distance(original_blob,modified_blob_list_distance[i])
         #determine the closest blob
@@ -59,13 +59,13 @@ class Blobservation:
         for i in range(len(modified_blob_list_distance)):
             modified_blob_list_distance[i].pop('distance')
         return result
-    def find_smaller_blobs(self,blob):#completed
+    def find_smaller_blobs(self,blob):
         result = []
         for i in self.blobs:
             if blob['size'] > i['size']:
                 result.append(i)
         return result
-    def find_biggest_blobs(self,modified_blob_list_size):#completed
+    def find_biggest_blobs(self,modified_blob_list_size):
         biggest_blob_size = 0
         result = []
         for i in modified_blob_list_size:
@@ -75,7 +75,7 @@ class Blobservation:
             if i['size'] == biggest_blob_size:
                 result.append(i)
         return result
-    def find_blob_angle(self,blob,modified_blob_list_angle):#completed
+    def find_blob_angle(self,blob,modified_blob_list_angle):
         smallest_angle = 359.9
         for i in modified_blob_list_angle:
             if self.azimuth(blob,i) < smallest_angle:
@@ -83,7 +83,7 @@ class Blobservation:
         for i in modified_blob_list_angle:
             if self.azimuth(blob,i) == smallest_angle:
                 return i
-    def determine_blob(self,blob):#completed
+    def determine_blob(self,blob):
         #smallest distance > largest size > smallest angle
         smaller_blobs = self.find_smaller_blobs(blob)
         if len(smaller_blobs) == 0 : return blob
@@ -94,7 +94,7 @@ class Blobservation:
                 return self.find_blob_angle(blob,biggest_blobs)
             return biggest_blobs[0]
         return nearest_blobs[0]
-    def determine_direction(self,blob):#completed by sharpfang
+    def determine_direction(self,blob):
         result = [0,0]
         blob1 = blob
         blob2 = self.determine_blob(blob)
@@ -112,7 +112,7 @@ class Blobservation:
             for i in range(len(modified_blob_list)):
                 self.move_blob(i,modified_blob_list)
             self.merge()
-    def find_dictionary_in_list(self,dictionary_list, target_dict):#completed
+    def find_dictionary_in_list(self,dictionary_list, target_dict):
         #remove 'direction' from the list
         for i in range(len(dictionary_list)):
             dictionary_list[i].pop('direction')
@@ -121,10 +121,10 @@ class Blobservation:
             if dictionary_list[d] == target_dict:
                 return d
         return False
-    def move_blob(self,i,modified_blob_list):#completed
+    def move_blob(self,i,modified_blob_list):
         self.blobs[i]['y'] += modified_blob_list[i]['direction'][1]
         self.blobs[i]['x'] += modified_blob_list[i]['direction'][0]
-    def print_state(self):#completed
+    def print_state(self):
         result = []
         for i in range(len(self.blobs)):
             element = []
