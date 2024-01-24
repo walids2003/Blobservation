@@ -33,18 +33,8 @@ class Blobservation:
         x = abs(blob2['x'] - blob1['x'])
         y = abs(blob2['y'] - blob1['y'])
         return max(x,y)
-    def azimuth(self,blob1,blob2):
-        x1 = 0
-        y1 = 1
-        x2 = blob2['x'] - blob1['x']
-        y2 = blob2['y'] - blob1['y']
-        v1_theta = math.atan2(y1, x1)
-        v2_theta = math.atan2(y2, x2)
-        r = (v1_theta - v2_theta) * (180.0 / math.pi)
-        if r < 0:
-            r += 360
-        r = r % 360
-        return r
+    def azimuth(self,origin,destination):
+        return (450 - math.degrees(math.atan2(origin['y'] - destination['y'], destination['x'] - origin['x']))) % 360
     def find_nearest_blob(self,original_blob,modified_blob_list_distance):
         for i in range(len(modified_blob_list_distance)):
             modified_blob_list_distance[i]['distance'] = self.distance(original_blob,modified_blob_list_distance[i])
